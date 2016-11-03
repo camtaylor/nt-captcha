@@ -19,7 +19,7 @@ import os
 EMAIL = "smartin@nametailor.com"
 FIRST_NAME = "Scott "
 LAST_NAME = "Martin"
-PHONE = "203-693-1112"
+PHONE = "2036931112"
 
 testing = False
 
@@ -196,8 +196,7 @@ def fill_form(forms, contact_page):
         completed += 1
 
 
-def send_contact_form(link):
-  driver = webdriver.Firefox()
+def send_contact_form(driver, link):
   driver.get(link)
   try:
     forms = driver.find_elements_by_tag_name("form")
@@ -210,7 +209,7 @@ def send_contact_form(link):
     driver.close()
 
 if __name__ == "__main__":
-
+  driver = webdriver.Firefox()
   domain_list = []
   with open('captcha.txt', 'rb') as f:
     reader = csv.reader(f)
@@ -225,8 +224,7 @@ if __name__ == "__main__":
     domain_name = keywords.title().strip().replace(" ", "") + ".com"
     contact_page = marketed_domain[0].strip()
     try:
-      send_contact_form(contact_page)
+      send_contact_form(driver, contact_page)
     except Exception as e:
       print e
-    os.system("pkill firefox")
   

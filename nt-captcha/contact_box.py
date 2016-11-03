@@ -198,15 +198,11 @@ def fill_form(forms, contact_page):
 
 def send_contact_form(driver, link):
   driver.get(link)
-  try:
-    forms = driver.find_elements_by_tag_name("form")
-    if forms:
-      print link
-      fill_form(forms, link)
-      raw_input("Press enter to move to the next domain >>>")
-  except Exception as e:
-    print e
-    driver.close()
+  forms = driver.find_elements_by_tag_name("form")
+  if forms:
+    print link
+    fill_form(forms, link)
+    raw_input("Press enter to move to the next domain >>>")
 
 if __name__ == "__main__":
   driver = webdriver.Firefox()
@@ -226,5 +222,6 @@ if __name__ == "__main__":
     try:
       send_contact_form(driver, contact_page)
     except Exception as e:
+      driver = webdriver.Firefox()
       print e
   

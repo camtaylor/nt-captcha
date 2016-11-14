@@ -205,6 +205,8 @@ def send_contact_form(driver, link):
     raw_input("Press enter to move to the next domain >>>")
 
 if __name__ == "__main__":
+  
+  name_number = 0
   driver = webdriver.Firefox()
   domain_list = []
   with open('captcha.txt', 'rb') as f:
@@ -213,15 +215,21 @@ if __name__ == "__main__":
       keywords = line[1]
       searches = line[2]
       domain_list.append([line[0],keywords, searches])
-  for marketed_domain in domain_list:
-    keywords = marketed_domain[1]
-    searches = marketed_domain[2]
-    searches_per_day = str(int(round(int(searches)/30)))
-    domain_name = keywords.title().strip().replace(" ", "") + ".com"
-    contact_page = marketed_domain[0].strip()
-    try:
-      send_contact_form(driver, contact_page)
-    except Exception as e:
-      driver = webdriver.Firefox()
-      print e
-  
+  try:
+    for marketed_domain in domain_list:
+      name_number += 1
+      keywords = marketed_domain[1]
+      searches = marketed_domain[2]
+      searches_per_day = str(int(round(int(searches)/30)))
+      domain_name = keywords.title().strip().replace(" ", "") + ".com"
+      contact_page = marketed_domain[0].strip()
+      try:
+        send_contact_form(driver, contact_page)
+      except Exception as e:
+        driver = webdriver.Firefox()
+        print e
+  except KeyboardInterrupt: 
+    with open('captcha.txt', 'w') as f:
+      writer = csv.writer(f)
+      for row in domain_list[name_number:]:
+        writer.writerow(row)

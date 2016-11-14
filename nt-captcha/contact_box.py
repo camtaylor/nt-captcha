@@ -207,7 +207,7 @@ def send_contact_form(driver, link):
 if __name__ == "__main__":
   
   name_number = 0
-  driver = webdriver.Firefox()
+  driver = webdriver.Chrome()
   domain_list = []
   with open('captcha.txt', 'rb') as f:
     reader = csv.reader(f)

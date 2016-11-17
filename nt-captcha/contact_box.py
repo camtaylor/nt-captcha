@@ -233,3 +233,4 @@ if __name__ == "__main__":
       writer = csv.writer(f)
       for row in domain_list[name_number:]:
         writer.writerow(row)
+    os.system('pkill Chrome')

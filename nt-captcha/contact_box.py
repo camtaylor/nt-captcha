@@ -226,7 +226,7 @@ if __name__ == "__main__":
       try:
         send_contact_form(driver, contact_page)
       except Exception as e:
-        driver = webdriver.Firefox()
+        driver = webdriver.Chrome()
         print e
   except KeyboardInterrupt: 
     with open('captcha.txt', 'w') as f:
